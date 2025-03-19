@@ -348,20 +348,21 @@ async def finalizar_agendamento(id: int):
  # Verifica se o agendamento existe
  cursor.execute("SELECT * FROM agendamento WHERE id = %s", (id,))
  agendamento = cursor.fetchone()
+ 
  if agendamento:
  # Atualiza o status do agendamento para "concluído"
- sql = "UPDATE agendamento SET status = 'concluído' WHERE id = %s"
- val = (id,)
- cursor.execute(sql, val)
- conexao.commit()
- cursor.close()
- conexao.close()
- return RedirectResponse(url="/agendamentos", status_code=303)
+    sql = "UPDATE agendamento SET status = 'concluído' WHERE id = %s"
+    val = (id,)
+    cursor.execute(sql, val)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+    return RedirectResponse(url="/agendamentos", status_code=303)
  else:
- cursor.close()
- conexao.close()
- raise HTTPException(status_code=404, detail="Agendamento não
-encontrado")
+    cursor.close()
+    conexao.close()
+    raise HTTPException(status_code=404, detail="Agendamento não encontrado")
+    
 # Produtos
 @app.get("/produtos", response_class=HTMLResponse)
 async def listar_produtos(request: Request):
@@ -374,9 +375,13 @@ async def listar_produtos(request: Request):
  conexao.close()
  return templates.TemplateResponse("produtos_lista.html", {"request":
 request, "produtos": produtos})
+
+
 @app.get("/produtos/novo", response_class=HTMLResponse)
 async def produto_form(request: Request):
  return templates.TemplateResponse("produto_form.html", {"request": request})
+
+
 @app.post("/produtos/novo")
 async def criar_produto(
  vonixx_extractus: int = Form(None),
@@ -397,11 +402,14 @@ vonixx_sanitizante, vonixx_sintra)
  cursor.close()
  conexao.close()
  return RedirectResponse(url="/produtos", status_code=303)
+
+
 @app.get("/produtos/{produto_id}/editar", response_class=HTMLResponse)
 async def produto_editar_form(request: Request, produto: dict =
 Depends(obter_produto)):
- return templates.TemplateResponse("produto_editar.html", {"request":
-request, "produto": produto})
+ return templates.TemplateResponse("produto_editar.html", {"request": request, "produto": produto})
+
+
 @app.post("/produtos/{produto_id}/editar")
 async def atualizar_produto(
  produto_id: int,
@@ -425,6 +433,8 @@ produto_id)
  cursor.close()
  conexao.close()
  return RedirectResponse(url="/produtos", status_code=303)
+
+
 @app.get("/produtos/{produto_id}/finalizar")
 async def finalizar_produto(produto_id: int):
  conexao = conectar_banco()
@@ -436,27 +446,26 @@ async def finalizar_produto(produto_id: int):
  cursor.close()
  conexao.close()
  return RedirectResponse(url="/produtos", status_code=303)
+
+
 @app.get("/relatorios", response_class=HTMLResponse)
 async def pagina_relatorios(request: Request):
  conexao = conectar_banco()
  cursor = conexao.cursor(dictionary=True)
  # Dados para gráfico de agendamentos
- cursor.execute("SELECT DATE_FORMAT(data_agendamento, '%Y-%m-%d') AS mes,
-COUNT(*) AS quantidade FROM agendamento GROUP BY mes")
+ cursor.execute(
+    "SELECT DATE_FORMAT(data_agendamento, '%Y-%m-%d') AS mes, COUNT(*) AS quantidade FROM agendamento GROUP BY mes")
  agendamentos = cursor.fetchall()
  agendamentos_meses = [a['mes'] for a in agendamentos]
- agendamentos_quantidades = [int(a['quantidade']) for a in agendamentos] #
-Convertendo para int
+ agendamentos_quantidades = [int(a['quantidade']) for a in agendamentos] #Convertendo para int
+
  # Dados para gráfico de produtos utilizados
- cursor.execute("SELECT SUM(vonixx_extractus) AS extractus,
-SUM(vonixx_bactran) AS bactran, SUM(vonixx_sanitizante) AS sanitizante,
-SUM(vonixx_sintra) AS sintra FROM agendamento")
+ cursor.execute("SELECT SUM(vonixx_extractus) AS extractus, SUM(vonixx_bactran) AS bactran, SUM(vonixx_sanitizante) AS sanitizante, SUM(vonixx_sintra) AS sintra FROM agendamento")
  produtos_utilizados = cursor.fetchone() or {}
  produtos_utilizados = {k: int(v) if v is not None else 0 for k, v in
 produtos_utilizados.items()} # Convertendo para int
  # Dados para gráfico de estoque de produtos
- cursor.execute("SELECT vonixx_extractus, vonixx_bactran, vonixx_sanitizante,
-vonixx_sintra FROM produto")
+ cursor.execute("SELECT vonixx_extractus, vonixx_bactran, vonixx_sanitizante, vonixx_sintra FROM produto")
  estoque_produtos = cursor.fetchone() or {}
  estoque_produtos = {k: int(v) if v is not None else 0 for k, v in
 estoque_produtos.items()} # Convertendo para int
@@ -478,23 +487,23 @@ async def listar_agendamentos_api(
 ):
  conexao = conectar_banco()
  cursor = conexao.cursor(dictionary=True)
- sql = "SELECT * FROM agendamento WHERE 1=1" # Inicia com uma condição
-sempre verdadeira
+ sql = "SELECT * FROM agendamento WHERE 1=1" # Inicia com uma condição sempre verdadeira
  params = []
  if status:
- sql += " AND status = %s"
- params.append(status)
+    sql += " AND status = %s"
+    params.append(status)
  if data_inicio:
- sql += " AND data_agendamento >= %s"
- params.append(data_inicio)
+    sql += " AND data_agendamento >= %s"
+    params.append(data_inicio)
  if data_fim:
- sql += " AND data_agendamento <= %s"
- params.append(data_fim)
- cursor.execute(sql, params)
- agendamentos = cursor.fetchall()
- cursor.close()
- conexao.close()
- return JSONResponse(content=agendamentos)
+    sql += " AND data_agendamento <= %s"
+    params.append(data_fim)
+    cursor.execute(sql, params)
+    agendamentos = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return JSONResponse(content=agendamentos)
+ 
 @app.get("/api/agendamentos/{agendamento_id}")
 async def obter_agendamento_api(agendamento_id: int):
  agendamento = obter_agendamento(agendamento_id)
