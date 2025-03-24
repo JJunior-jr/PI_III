@@ -461,12 +461,14 @@ async def pagina_relatorios(request: Request):
 
  # Dados para gráfico de produtos utilizados
  cursor.execute("SELECT SUM(vonixx_extractus) AS extractus, SUM(vonixx_bactran) AS bactran, SUM(vonixx_sanitizante) AS sanitizante, SUM(vonixx_sintra) AS sintra FROM agendamento")
- produtos_utilizados = cursor.fetchone() or {}
+ produtos_utilizados = cursor.fetchone() or {} 
+ #produtos_utilizados= cursor.fetchone() or {"extractus": 0, "bactran": 0, "sanitizante": 0, "sintra": 0} #bloco novo
  produtos_utilizados = {k: int(v) if v is not None else 0 for k, v in
-produtos_utilizados.items()} # Convertendo para int
+ produtos_utilizados.items()} # Convertendo para int
  # Dados para gráfico de estoque de produtos
  cursor.execute("SELECT vonixx_extractus, vonixx_bactran, vonixx_sanitizante, vonixx_sintra FROM produto")
- estoque_produtos = cursor.fetchone() or {}
+ estoque_produtos = cursor.fetchone() or {} 
+ #estoque_produtos= cursor.fetchone() or {"vonixx_extractus": 0, "vonixx_bactran": 0, "vonixx_sintra": 0 } # bloco novo
  estoque_produtos = {k: int(v) if v is not None else 0 for k, v in
 estoque_produtos.items()} # Convertendo para int
  cursor.close()
