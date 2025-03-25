@@ -14,10 +14,10 @@ templates = Jinja2Templates(directory="templates")
 
 def conectar_banco():
     return mysql.connector.connect(
-        host="localhost",
+        host="127.0.0.1",
         user="root",
-        password="Allstar3",
-        database="estoque"
+        password="Loveguga_jr12",
+        database="bd_pi3"
     )
 
 def criar_tabela_usuario():
