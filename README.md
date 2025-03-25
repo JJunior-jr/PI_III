@@ -79,3 +79,49 @@ Para executar sua aplicação FastAPI, você precisará dos seguintes requisitos
     ├── produto_form.html
     ├── produtos_lista.html
     └── relatorios.html
+
+    
+    
+Descrição dos Arquivos e Diretórios
+
+main.py
+
+Função: Este é o arquivo principal da sua aplicação FastAPI. Ele contém todas as rotas da sua API, lógica de negócios, configurações do banco de dados e definições de modelos. Ele gerencia a criação de tabelas no banco de dados, define as rotas para login, cadastro de usuários, agendamentos, produtos e relatórios. Ele serve tanto a interface web quanto a API de consulta de agendamentos.
+Responsabilidades:
+Definir as rotas da aplicação.
+Gerenciar o acesso ao banco de dados.
+Implementar a lógica de negócios da aplicação.
+Servir os templates HTML.
+Fornecer os endpoints da API.
+static/
+
+Função: Este diretório contém os arquivos estáticos da sua aplicação, como CSS, JavaScript e imagens. Os arquivos estáticos são servidos diretamente pelo servidor web.
+Arquivos:
+style.css: Arquivo CSS com os estilos da aplicação.
+script.js: Arquivo JavaScript com a lógica do frontend.
+Responsabilidades:
+Definir a aparência e o comportamento das páginas web.
+templates/
+
+Função: Este diretório contém os templates HTML da sua aplicação. Os templates são usados para renderizar as páginas web da sua aplicação. Eles usam a engine de templates Jinja2 para inserir dados dinâmicos nas páginas.
+Arquivos:
+pagina_principal.html: Página principal da aplicação.
+login.html: Página de login.
+cadastro.html: Página de cadastro de usuários.
+dashboard.html: Página de dashboard com a lista de usuários.
+editar_usuario.html: Página para editar um usuário.
+agendamentos_lista.html: Página com a lista de agendamentos.
+agendamento_form.html: Página para criar um novo agendamento.
+agendamento_editar.html: Página para editar um agendamento.
+produtos_lista.html: Página com a lista de produtos.
+produto_form.html: Página para criar um novo produto.
+produto_editar.html: Página para editar um produto.
+relatorios.html: Página com os relatórios.
+Responsabilidades:
+Definir a estrutura e o layout das páginas web.
+Exibir dados dinâmicos da aplicação.
+requirements.txt
+
+Função: Este arquivo lista todas as dependências Python do seu projeto, juntamente com suas versões. Ele é usado para recriar o ambiente virtual do projeto em outras máquinas.
+Responsabilidades:
+Listar as dependências do projeto.
