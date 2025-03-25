@@ -1,20 +1,20 @@
 # PI_III
 
-<h3>Os códigos apresentado descreve um sistema web de controle de estoque e 
+###Os códigos apresentado descreve um sistema web de controle de estoque e 
 agendamento de serviços. Ele é composto por uma API desenvolvida em FastAPI e um 
 frontend em HTML, CSS e JavaScript. O sistema possui funcionalidades para 
 gerenciar usuários, produtos e agendamentos, integrados com um banco de dados 
-MySQL.</h3>
+MySQL.
  
  Requisitos:
  Para executar sua aplicação FastAPI, você precisará dos seguintes requisitos:
  
- <h5>1. Python:
+ #####1. Python:
  • Versão: Python 3.7 ou superior (recomenda-se a versão mais recente). 
 • Motivo: FastAPI utiliza recursos e sintaxe disponíveis apenas em versões 
-recentes do Python.</h5> 
+recentes do Python. 
 <h5>2. Gerenciador de Pacotes pip:
- • Motivo: pip é usado para instalar as dependências do seu projeto. 
+• Motivo: pip é usado para instalar as dependências do seu projeto. 
 • Observação: Geralmente, o pip já vem instalado com o Python.</h5>
 
 3. Ambiente Virtual (Recomendado):
@@ -56,6 +56,8 @@ no main.py).
 • Execute o comando uvicorn main:app --reload. 
 6.Acesse a Aplicação: 
 • Abra um navegador web e acesse http://127.0.0.1:8000.
+ 
+ 
  Estrutura de diretorios e arquivos
  └─[$] <git:(main*)> tree                         
 .
