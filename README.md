@@ -55,7 +55,7 @@ no main.py).
 5.Execute a Aplicação: 
 • Execute o comando uvicorn main:app --reload. 
 6.Acesse a Aplicação: 
-• Abra um navegador web e acesse http://127.0.0.1:8000.
+• Abra um navegador web e acesse http://127.0.0.1:8000..
  
  
  Estrutura de diretorios e arquivos
