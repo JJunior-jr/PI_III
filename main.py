@@ -24,6 +24,7 @@ app = FastAPI(
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
+#    def __init__(self, host="db", user="root", password="Allstar3", database="estoque", port=3306):
 class Database:
     def __init__(self, host="db", user="root", password="Allstar3", database="estoque", port=3306):
         self.host = host
